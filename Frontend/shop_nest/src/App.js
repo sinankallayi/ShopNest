@@ -7,6 +7,9 @@ import About from './components/About';
 import Login from './components/Login';
 import Shop from './components/Shop';
 import Contact from './components/Contact';
+import Men from './pages/Mens';
+import Women from './pages/Women';
+import Kids from './pages/Kids';
 
 function App() {
   return (
@@ -20,11 +23,14 @@ function App() {
         <Route path='/shop' element={<Shop/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/login' element={<Login/>}/>
-        
+        <Route path='/mens' element={<Men/>}/>
+        <Route path='/womens' element={<Women/>}/>
+        <Route path='/kids' element={<Kids/>}/>
+        </Routes>
 
 
-      </Routes>
-      </div>
+
+   </div>
     </div>
   );
 }
