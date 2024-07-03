@@ -1,9 +1,11 @@
 .hero{
     min-height: 100vh;
-    background:  linear-gradient(180deg, #287671, #e1ffea22 60%);
+    /* background:  linear-gradient(180deg, #287671, #e1ffea22 60%); */
     display: flex;
     align-items: center;
     padding-left: 5%;
+    background: rgb(38,120,113);
+    background: linear-gradient(180deg, rgba(38,120,113,1) 0%, rgba(38,120,113,1) 80%, rgb(255, 255, 255) 100%);
     
     
   
@@ -45,8 +47,8 @@
     height: 60px;
     border-radius: 75px;
     margin-top: 20px;
-    background: #287671;
-    color: white;
+    background: #ffffff;
+    color: #267871;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
@@ -55,11 +57,14 @@
     width: 18px;
 }
 
+.hero-last img{
+    width: 400px;
+} 
 .hero-right img{
     width: 450px;
 }
 
-@media(max-width:1200px){
+/* @media(max-width:1200px){
     
     .hero{
         padding: 10px 6%;
@@ -102,4 +107,4 @@
     .hero-latest-btn{
         margin-top: 30px;
     }
-}
+} */

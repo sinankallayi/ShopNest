@@ -1,15 +1,20 @@
-import React from 'react'
-import 'D:/Tutorial/ICT/ShopNest/Frontend/shop_nest/src/components/Home.css';
-import 'D:/Tutorial/ICT/ShopNest/Frontend/shop_nest/src/components/Hero/Hero.css'
-// import hand_icon from '../assets/hand_icon.png'
-import arrow_icon from '../assets/arrow.png'
-import hero_image from '../assets/files.png'
-import hero_image2 from 'D:/Tutorial/ICT/ShopNest/Frontend/shop_nest/src/assets/files2.png'
+import React from 'react';
+import './Home.css';
+import './Hero/Hero.css';
+// import hand_icon from '../assets/hand_icon.png';
+import arrow_icon from '../assets/arrow.png';
+import hero_image from '../assets/files.png';
+import hero_image2 from '../assets/files2.png';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import carousel1 from '../assets/carousel1.png';
+import carousel2 from '../assets/carousel2.1.jpeg';
+import carousel3 from '../assets/carousel3.jpg';
+import help from '../assets/help.png';
+import Men from 'pages/Mens';
+import ProductList from 'data/Productlist';
 
 const Home = () => {
-
-  // const [currentSlide, setCurrentSlide] = useState(0);
-
   const products = [
     {
       id: 1,
@@ -35,97 +40,53 @@ const Home = () => {
     // Add more products as needed
   ];
 
-  // const slides = [
-  //   {
-  //     image: 'https://via.placeholder.com/1400x800',
-  //     label: '',
-  //     description: ''
-  //   },
-  //   {
-  //     image: 'https://via.placeholder.com/1400x800',
-  //     label: '',
-  //     description: ''
-  //   },
-  //   {
-  //     image: 'https://via.placeholder.com/1400x800',
-  //     label: '',
-  //     description:''
-  //   }
-  // ];
+  const slides = [
+    {
+      image: carousel2,
+      label: 'Slide 1',
+      description: 'This is the description for slide 1.'
+    },
+    {
+      image: carousel1,
+      label: 'Slide 2',
+      description: 'This is the description for slide 2.'
+    },
+    {
+      image: carousel3,
+      label: 'Slide 3',
+      description: 'This is the description for slide 3.'
+    }
+  ];
 
-  // const nextSlide = () => {
-  //   setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-  // };
+  return (
+    <div className='containerStyle'>
+      <header style={{ backgroundColor: '#287671', padding: '20px', color: 'white', height: '150px', fontFamily: 'Abel' }}>
+        <h1 className='h1' style={{marginLeft:'35%'}}>Welcome to ShopNest</h1>
+        <p style={{ fontSize: '20px',marginLeft:'39%' }}>Your one-stop shop for everything!</p>
+      </header>
 
-  // const prevSlide = () => {
-  //   setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
-  // };
-
-
-
-
-  return( 
-  <div className='containerStyle'>
-  <header style={{ backgroundColor: '#287671', padding: '20px', color: 'white' ,height:'150px',fontFamily:'Abel'}}>
-      <h1 className='h1'>Welcome to ShopNest</h1>
-      <p style={{fontSize:'20px'}}>Your one-stop shop for everything!</p>
-  </header>
-
-
-  <div className='hero'>
-  <div className="hero-right">
-        <img src={hero_image} alt="" />
-      </div>
-      <div className="hero-left">
-        <div>
-            <div style={{marginLeft:'5%'}}>
-                <p>IF YOU CAN'T<br /><br />
-                STOP THINKING<br />  <br />
-                ABOUT IT...<br /><br />
-                BUY IT</p>
-
-                
-                {/* <img src={hand_icon} alt="" /> */}
+      <div className='hero'>
+        <div className="hero-right">
+          <img src={hero_image} alt="Hero" />
+        </div>
+        <div className="hero-left">
+          <div>
+            <div style={{ marginLeft: '6%'}}>
+              <p>IF YOU CAN'T<br /><br />STOP THINKING<br /><br />ABOUT IT...<br /><br />BUY IT</p>
             </div>
-           
+          </div>
+          <div className="hero-latest-btn">
+            <div><h3><b>Latest Collection</b></h3></div>
+          </div>
         </div>
-        <div className="hero-latest-btn">
-            <div>Latest Collection</div>
-            <img src={arrow_icon} alt="" />
+        <div className="hero-last" style={{ marginLeft: '15%' }}>
+          <img src={hero_image2} alt="Hero 2" />
         </div>
       </div>
-      <div style={{marginLeft:'15%'}}>
-      <img src={hero_image2} alt="" style={{width:'130%',height:'80%'}}/>
-      </div>
-    </div>
-
-  {/* <div className='containerStyle'>
-      <div className="carousel">
-        <div className="carousel-inner">
-          {slides.map((slide, index) => (
-            <div
-            key={index}
-            className={carousel-item ${index === currentSlide ? 'active' : ''}}>
-
-              <img src={slide.image} alt={slide.label} className="d-block w-100" />
-              <div className="carousel-caption">
-                <h3>{slide.label}</h3>
-                <p>{slide.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <button className="carousel-control-prev" onClick={prevSlide}>
-          &#10094;
-        </button>
-        <button className="carousel-control-next" onClick={nextSlide}>
-          &#10095;
-        </button>
-      </div> */}
-
       <div className="container">
-        <div className="row">
-          {products.map((product) => (
+        <div className="row" style={{marginLeft:'10%'}}>
+        <ProductList products={products} />
+          {/* {products.map((product) => (
             <div key={product.id} className="col-4">
               <div className="card">
                 <img src={product.image} alt={product.name} className="card-img-top" />
@@ -137,25 +98,32 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
+
+      <div className="carousel-container">
+        <Carousel showThumbs={false} autoPlay={true} infiniteLoop={true}>
+          {slides.map((slide, index) => (
+            <div key={index}>
+              <img src={slide.image} alt={slide.label} />
+              <p className="legend">{slide.label}</p>
+            </div>
+          ))}
+        </Carousel>
+      </div>
+
+      <div className="container">
+      <div className="row" style={{marginLeft:'10%'}}>
+      <ProductList products={products} />
+        </div>
+      </div>
+      <div><center>
+      <img src={help} alt="help" width='100%'/>
+      </center>
+      </div>
     </div>
+  );
+}
 
-  // </div>
-
-)}
-
-  
-
-
-// {/* <section style={{ marginTop: '20px' }}><br />
-//     <h2>Featured Products</h2>
-//     <p>Check out our latest products and deals!</p>
-//   </section> */}
-
-
-
-
-
-export default Home
+export default Home;

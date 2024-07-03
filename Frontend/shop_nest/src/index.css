@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(38,120,113);
+  background: linear-gradient(180deg, rgba(38,120,113,1) 0%, rgba(38,120,113,1) 80%, rgb(255, 255, 255) 100%);
+
 }
 
 code {
@@ -49,6 +52,42 @@ code {
   color:#287671;
   text-decoration: none;
   align-items: center;
+}
+
+.buttonstyle2{
+  color:#000000;
+  text-decoration: none;
+  align-items: center;
+  justify-content: right;
+}
+
+.filter-button {
+  background-color: #f7fcf7;
+  border: none;
+  color: #030303;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+.filter-button2{
+  background-color: #000000;
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .ulstyle{
