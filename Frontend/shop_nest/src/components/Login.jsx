@@ -27,9 +27,6 @@ const Login = () => {
       setPassword(e.target.value)
   }
 
-
-
-
   return (
     <div className={styles.login_container} style={{paddingBottom:'8%'}}>
     <div className={styles.login_form_container}>

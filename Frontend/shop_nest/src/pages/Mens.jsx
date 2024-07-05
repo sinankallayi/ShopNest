@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import 'pages/Women.css'; // Assuming you create a separate CSS file for the Womens component
 // import products from 'data/Products.jsx';
 import Product from 'components/Product.jsx';
-import { toast } from 'react-toastify'; // Adjust the path as needed
+import { toast } from 'react-toastify';
+import product_0 from 'assets/product_0.jpg';
+// Adjust the path as needed
 
-const Men = ({products,title}) => {
+const Men = ({products,title,product_0}) => {
 
-  const [message, setMessage] = useState('');
+  const [message,] = useState('');
 
   const addToCart = (product) => {
     // Retrieve existing cart items from localStorage or initialize an empty array
@@ -39,6 +41,9 @@ const Men = ({products,title}) => {
           <h1 style={{ fontFamily: 'abril-fatface-regular', fontSize: '25px' }}>{title}</h1>
         </header>
         <main>
+          {/* <div>
+          <img src={product_0} alt='banner' />
+          </div> */}
           <div className="product-list">
             {products.map(product => (
               <Product key={product.id} product={product} addToCart={() => addToCart(product)} />

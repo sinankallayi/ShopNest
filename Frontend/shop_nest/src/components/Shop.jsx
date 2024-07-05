@@ -4,6 +4,7 @@ import Men from '../pages/Mens';
 // import Women from '../pages/Women';
 // import ProductList from 'data/Productlist.jsx'; // Assuming you have this component
 import { Products } from 'data/Products';
+import Product0 from 'components/Product.jsx';
 
 const Shop = () => {
   const [selectedSection, setSelectedSection] = useState(null);
@@ -67,7 +68,7 @@ const Shop = () => {
         return <Men products={womens} title={"ShopNest - Women's Clothing"} />;
       case 'kids':
         const kids = allProducts.filter(i => i.type === 'kids')
-        return <Men products={kids} title={"ShopNest - Kids Clothing"}/>;
+        return <Men products={kids} title={"ShopNest - Kids Clothing"} />;
       default:
         return <Men products={allProducts} title={"ShopNest - All Products"} />;
     }

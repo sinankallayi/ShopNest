@@ -18,6 +18,8 @@ import { ToastContainer } from 'react-toastify';
 // Ensure this matches the actual filename
 import 'react-toastify/dist/ReactToastify.css';
 import { Products } from 'data/Products';
+import Payment from 'pages/Payment';
+import ShippingTracking from 'pages/ShippingTrack';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -43,6 +45,11 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/admin' element={<AdminPage />} />
+          <Route path='/payment' element={<Payment />} />
+          <Route path='/shipping' element={<ShippingTracking />} />
+          
+
+          
         </Routes>
       </div>
       <ToastContainer />

@@ -15,6 +15,7 @@ const Signup = () => {
     }
     console.log(username, email, password);
     // Handle sign-up logic here
+    alert('Register successfully!');
   };
 
   const handleUser = (e) => {
@@ -34,10 +35,10 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.signup_container} style={{ marginTop: '10%' }}>
+    <div className={styles.signup_container}>
       <div className={styles.signup_form_container}>
         <div className={styles.right}>
-          <form className={styles.form_container} onSubmit={signupHandler}>
+          <form className={styles.form_container} style={{ marginTop: '10%' }} onSubmit={signupHandler}>
             <h1>Create Account</h1>
             <input
               type="text"
