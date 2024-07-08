@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
 import styles from "./styles.module.css";
+import axios from 'axios'
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [username, setUser] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate()
 
   const signupHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
-    }
-    console.log(username, email, password);
-    // Handle sign-up logic here
-    alert('Register successfully!');
+    }else{ // Handle sign-up logic here
+    e.preventDefault();
+    axios.post('http://localhost:5000/signup',{username:username,email:email,password:password})
+    .then(response =>{
+      const result =response.data
+      if(result.success){
+        toast.success(result.message)
+        navigate('/')
+      }
+    })
+    .catch(err=>console.log(err))
+  }
   };
 
   const handleUser = (e) => {
@@ -81,5 +93,10 @@ const Signup = () => {
     </div>
   );
 };
+
+
+
+
+
 
 export default Signup;

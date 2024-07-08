@@ -13,13 +13,15 @@ import Kids from './pages/Kids';
 import Profile from './pages/Profile';
 import Signup from './components/Signup';
 import Cart from './pages/Cart';
-import AdminPage from './components/AdminPage';
 import { ToastContainer } from 'react-toastify';
 // Ensure this matches the actual filename
 import 'react-toastify/dist/ReactToastify.css';
 import { Products } from 'data/Products';
 import Payment from 'pages/Payment';
 import ShippingTracking from 'pages/ShippingTrack';
+import {Products as AdminProducts} from 'pages/admin/products';
+import { Admin } from 'pages/admin';
+import { CreateProduct } from 'pages/admin/products/Create';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -31,7 +33,6 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <div style={{ marginTop: '90px' }}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
@@ -44,14 +45,16 @@ function App() {
           <Route path='/kids' element={<Men products={Products.filter(i => i.type === 'kids')} title={"ShopNest - Kid's Clothing"} addToCart={addToCart} />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/admin' element={<AdminPage />} />
+          <Route path='/admin' element={<Admin />} />
+          <Route path='/products' element={<AdminProducts />} />
+          {/* <Route path='/users' element={<AdminProducts />} /> */}
           <Route path='/payment' element={<Payment />} />
           <Route path='/shipping' element={<ShippingTracking />} />
-          
+          <Route path='/product/create' element={<CreateProduct />} />
+          <Route path='/product/:id' element={<CreateProduct />} />
 
           
         </Routes>
-      </div>
       <ToastContainer />
     </div>
   );

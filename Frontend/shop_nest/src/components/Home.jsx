@@ -25,7 +25,7 @@ import product30 from 'assets/product_30.png';
 
 const Home = () => {
 
-  const products1=[
+  const products1 = [
     {
       id: 4,
       name: 'Top',
@@ -94,40 +94,29 @@ const Home = () => {
 
   return (
     <div className='containerStyle'>
-      <header style={{ backgroundColor: '#287671', padding: '20px', color: 'white', height: '150px', fontFamily: 'Abel' }}>
-        <h1 className='h1' style={{marginLeft:'35%'}}>Welcome to ShopNest</h1>
-        <p style={{ fontSize: '20px',marginLeft:'39%' }}>Your one-stop shop for everything!</p>
+      <header style={{ backgroundColor: 'white', padding: '20px', color: 'black', height: '150px', fontFamily: 'Abel' }}>
+        <h1 style={{ textAlign:'center' }}>Welcome to ShopNest</h1>
+        <p style={{ fontSize: '20px', textAlign:'center' }}>Your one-stop shop for everything!</p>
       </header>
 
 
+{/* 
       <div className='hero'>
-  <div className="row">
-    <div className="col-md-6 hero-right">
-      <img src={hero_image} className="img-fluid" alt="Hero" />
-    </div>
-    {/* <div className="col-md hero-left">
-      <div style={{ marginLeft: '6%', paddingTop: '80%' }}>
-        <p style={{ textAlign: 'left' }}>
-          If You Can't <br /><br />
-          Stop Thinking About It...<br /><br />
-          Buy It!
-        </p>
-      </div>
-      <div className="hero-latest-btn" style={{ marginLeft: '6%' }}>
-        <div><h3><b>Latest Collection</b></h3></div>
-      </div>
-    </div> */}
-    <div className="col-12 hero-last">
-      <img src={hero_image2} className="img-fluid" alt="Hero 2" style={{ marginLeft: '125%' }} />
-    </div>
-  </div>
-</div>
+        <div className="row">
+          <div className="col-md-6 hero-right">
+            <img src={hero_image} className="img-fluid" alt="Hero" />
+          </div>
+          <div className="col-12 hero-last">
+            <img src={hero_image2} className="img-fluid" alt="Hero 2" style={{ marginLeft: '125%' }} />
+          </div>
+        </div>
+      </div> */}
 
 
 
       <div className="container">
-        <div className="row" style={{marginLeft:'10%'}}>
-        <ProductList products={products} />
+        <div className="row" style={{ marginLeft: '10%' }}>
+          <ProductList products={[...products, products[0]]} />
           {/* {products.map((product) => (
             <div key={product.id} className="col-4">
               <div className="card">
@@ -145,7 +134,7 @@ const Home = () => {
 
 
 
-           {/* <div className="col-md-6 hero-left">
+          {/* <div className="col-md-6 hero-left">
       <div style={{ marginLeft: '6%' }}>
         <p>IF YOU CAN'T<br /><br />STOP THINKING<br /><br />ABOUT IT...<br /><br />BUY IT</p>
       </div>
@@ -159,24 +148,26 @@ const Home = () => {
         </div>
       </div>
 
+
       <div className="carousel-container">
-        <Carousel showThumbs={false} autoPlay={true} infiniteLoop={true}>
+        <Carousel showThumbs={false} autoPlay={true} dynamicHeight={true}  infiniteLoop={true}>
           {slides.map((slide, index) => (
             <div key={index}>
               <img src={slide.image} alt={slide.label} />
-              <p className="legend">{slide.label}</p>
+              {/* <p className="legend">{slide.label}</p> */}
             </div>
           ))}
         </Carousel>
       </div>
 
       <div className="container">
-      <div className="row" style={{marginLeft:'10%'}}>
-      <ProductList products={products1} />
+        <div className="row" style={{ marginLeft: '10%' }}>
+          <ProductList products={products1} />
         </div>
       </div>
+      
       <div><center>
-      <img src={help} alt="help" width='100%'/>
+        <img src={help} alt="help" width='100%' />
       </center>
       </div>
     </div>

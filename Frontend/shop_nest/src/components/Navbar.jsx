@@ -1,65 +1,176 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
-import { Box, Button, IconButton, TextField } from '@mui/material';
-import cart from 'assets/grocery-store.png';
-import { Link } from 'react-router-dom';
-import user from 'assets/user.png';
-import SearchIcon from '@mui/icons-material/Search';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { SearchBox } from './Search';
 
-const Navbar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+const pages = [{name:'Home', link:"/"}, {name:'About', link:"/about"}, {name:'Shop', link:"/shop"},{name:'Contact', link:"/contact"} ];
+const settings = [{name:'Profile', link:'/profile'},{name:'Account', link:'/account'},{name:'Dashboard', link:'/dashboard'},{name:'Logout', link:'/logout'},];
 
-  const handleSearch = () => {
-    // Convert searchQuery to lowercase to make the search case-insensitive
-    const query = searchQuery.toLowerCase();
-
-    if (query.includes('women')) {
-      navigate('/womens');
-    } else if (query.includes('men')) {
-      navigate('/mens');
-    } else if (query.includes('kids')) {
-      navigate('/kids');
-    } else {
-      alert('No matching category found!');
-    }
+function Navbar() {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+const navigate = useNavigate()
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  
+  const handleLinkClick = (page) => {
+    navigate(page.link);
+    handleCloseNavMenu()
+    handleCloseUserMenu()
+  };
+
+  const logoName = "ShopNest"
   return (
-    <div>
-      <AppBar position="fixed" color="default" sx={{ height: 80 }}>
-        <Toolbar sx={{ minHeight: 80, justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <h2 style={{ fontFamily: 'Abril Fatface, cursive', fontWeight: 'bold' }}>ShopNest</h2>
-            <ul className='ulstyle' style={{ display: 'flex', marginLeft: '110%', listStyle: 'none', padding: 0 }}>
-              <li><Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}><h3><b>HOME</b></h3></Link></li>
-              <li><Link to='/about' style={{ textDecoration: 'none', color: 'inherit' }}><h3><b>ABOUT</b></h3></Link></li>
-              <li><Link to='/shop' style={{ textDecoration: 'none', color: 'inherit' }}><h3><b>SHOP</b></h3></Link></li>
-              <li><Link to='/contact' style={{ textDecoration: 'none', color: 'inherit' }}><h3><b>CONTACT</b></h3></Link></li>
-            </ul>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <TextField
-              variant="outlined"
-              placeholder="Search..."
-              size="small"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              sx={{ marginRight: 1, width: '200px' }}
-            />
-            <IconButton color="primary" onClick={handleSearch}>
-              <SearchIcon />
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          {/* <Shop sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            onClick={()=>handleLinkClick({link:"/"})}
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            {logoName}
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
             </IconButton>
-            <Button><Link to='/login' style={{ textDecoration: 'none', color: 'inherit' }}><h3><b>LOGIN</b></h3></Link></Button>
-            <Link to='/cart'><img style={{ marginLeft: '20px', marginRight: '10px' }} src={cart} width={30} height={30} alt='cart' /></Link>
-            <Link to='/profile'><img style={{ marginLeft: '10px' }} src={user} width={30} height={30} alt='user' /></Link>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page.link} onClick={()=>handleLinkClick(page)}>
+                  <Typography textAlign="center">{page.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            onClick={()=>handleLinkClick({link:"/"})}
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            {logoName}
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button
+                key={page.name}
+                onClick={()=>handleLinkClick(page)}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page.name}
+              </Button>
+            ))}
+          </Box>
+
+          <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
+            <SearchBox/>
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting.name} onClick={()=>handleLinkClick(setting)}>
+                  <Typography textAlign="center">{setting.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
-      </AppBar>
-    </div>
+      </Container>
+    </AppBar>
   );
 }
-
 export default Navbar;
+

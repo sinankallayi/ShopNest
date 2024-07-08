@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: rgb(38,120,113);
-  background: linear-gradient(180deg, rgba(38,120,113,1) 0%, rgba(38,120,113,1) 80%, rgb(255, 255, 255) 100%);
+  /* background: rgb(38,120,113);*/
+  /* background: linear-gradient(180deg, rgba(38,120,113,1) 0%, rgba(38,120,113,1) 80%, rgb(255, 255, 255) 100%); */
 
 }
 
@@ -36,7 +36,6 @@ code {
   text-align: 'justify';
   align-items: center;
   display: contents;
-  
 }
 
 .headerstyle{
