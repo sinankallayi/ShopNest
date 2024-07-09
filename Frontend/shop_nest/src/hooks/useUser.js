@@ -1,14 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { AuthContext } from "context/AuthContext";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getUserToken } from "utils/auth";
 import { base64Decode } from "utils/utils";
+import { ACCESS_TOKEN as adminToken} from "./useAdmin";
 
 export const ACCESS_TOKEN = "UserToken"
 
 export const useUser = () => {
-  const [user, setUser] = useState(JSON.parse(base64Decode(getUserToken()?.split('.')[1])));
+  const { user, setUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const removeUser = () => {
@@ -37,8 +38,9 @@ export const useUser = () => {
   }
 
   const logout = () => {
-    if (!window.confirm("ConfirmLogout")) return
+    if (!window.confirm("Confirm Logout")) return
     localStorage.removeItem(ACCESS_TOKEN)
+    localStorage.removeItem(adminToken)
     removeUser();
   };
 

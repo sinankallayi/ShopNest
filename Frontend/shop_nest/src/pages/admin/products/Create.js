@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { authHeader, getToken } from 'utils/auth';
+import { useAdmin } from 'hooks/useAdmin';
 
 
 export const CreateProduct = () => {
@@ -17,8 +18,12 @@ export const CreateProduct = () => {
     const [price, setPrice] = useState()
     const [type, setType] = useState()
     const [image, setImage] = useState()
+    const { user } = useAdmin()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (!user) navigate('/admin')
+    }, [])
 
     // useEffect(() => {
     //     getProduct(id)

@@ -6,10 +6,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import productSample from "assets/product_0.jpg";
 import axios from 'axios';
+import { useAdmin } from 'hooks/useAdmin';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 export const Products = () => {
+    const { user } = useAdmin()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!user) navigate('/admin')
+    }, [])
     const [products, setProducts] = useState()
     useEffect(() => {
         getProducts()

@@ -19,7 +19,7 @@ const login = async (req, res) => {
     if (user == null) res.status(400).json({ success: false, message: "Invalid username or password" })
     else {
         if (await bcrypt.compare(req.body.password, user.password)) {
-            const data = { user: user.email, username: user.username, type: "user" }
+            const data = { email: user.email, username: user.username, type: "user" }
             const accessToken = generateAccessToken(data)
             const refreshToken = generateRefreshToken(data)
             res.json({ accessToken: accessToken, refreshToken: refreshToken })
@@ -30,9 +30,29 @@ const login = async (req, res) => {
     }
 }
 
+
+const listUsers = async (req, res) => {
+    const result = await userModel.find()
+    res.json(result)
+}
+
+const getUser = async (req, res) => {
+    const result = await userModel.find(req.body)
+    res.json(result)
+}
+
+const deleteUser = async (req, res) => {
+    const result = await userModel.findByIdAndDelete(req.body.id)
+    res.json({ success: true, message: "Delete successfully", data: result })
+}
+
+
 const userController = {
     signup: signup,
-    login: login
+    login: login,
+    getUser: getUser,
+    listUsers: listUsers,
+    deleteUser: deleteUser
 }
 
 module.exports = userController

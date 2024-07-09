@@ -24,6 +24,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CreateAdmin } from 'pages/admin/admins/Create';
 import { Admins } from 'pages/admin/admins';
 import axios from 'axios';
+import { Users } from 'pages/admin/users';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -58,7 +59,7 @@ function App() {
         <Route path='/kids' element={<Men products={products?.filter(i => i.type === 'kids')} title={"ShopNest - Kid's Clothing"} addToCart={addToCart} />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/cart' element={<Cart />} />
-        {/* <Route path='/users' element={<AdminProducts />} /> */}
+        <Route path='/users' element={<Users />} />
         <Route path='/payment' element={<Payment />} />
         <Route path='/shipping' element={<ShippingTracking />} />
         

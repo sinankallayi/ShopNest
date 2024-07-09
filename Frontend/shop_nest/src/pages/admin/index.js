@@ -13,12 +13,7 @@ export const AdminDashboard = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (user) {
-            console.log(user);
-        }
-        else {
-            navigate('/admin')
-        }
+        if (!user) navigate('/admin')
     }, [])
 
     return (

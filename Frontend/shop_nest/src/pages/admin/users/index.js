@@ -9,44 +9,44 @@ import axios from 'axios';
 import { useAdmin } from 'hooks/useAdmin';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authHeader, getToken } from 'utils/auth';
+import { authHeader } from 'utils/auth';
 
 
-export const Admins = () => {
+export const Users = () => {
     const { user } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!user) navigate('/user')
     }, [])
 
-    const [admins, setAdmins] = useState()
+    const [users, setUsers] = useState()
     useEffect(() => {
         getAdmins()
     }, [])
 
     const getAdmins = () => {
-        axios.get("http://localhost:5000/admins",
+        axios.get("http://localhost:5000/users",
             authHeader()
         ).then(response => {
-            setAdmins(response.data)
+            setUsers(response.data)
         })
     }
     const deleteProduct = (id) => {
-        axios.delete("http://localhost:5000/admin", authHeader(), { data: { id: id } }, ).then(response => {
+        axios.delete("http://localhost:5000/users",authHeader(), { data: { id: id } }, ).then(response => {
             getAdmins()
         })
     }
 
     const editProduct = (id) => {
-        navigate(`/admin/${id}`)
+        // navigate(`/users/${id}`)
     }
 
     return (
         <>
             <Grid container direction="row" justifyContent="center" sx={{ my: 4 }}>
-                <Grid item><Typography variant='h5'>Admins</Typography></Grid>
-                <Grid item ><Button sx={{ mx: 4 }} variant='contained' onClick={() => navigate('/admin/create')}>ADD</Button></Grid>
+                <Grid item><Typography variant='h5'>Users</Typography></Grid>
+                <Grid item ><Button sx={{ mx: 4 }} variant='contained' onClick={() => navigate('/user/create')}>ADD</Button></Grid>
             </Grid>
 
             <TableContainer component={Paper}>
@@ -59,16 +59,16 @@ export const Admins = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {admins && admins.map(admin =>
+                        {users && users.map(user =>
                             <TableRow
-                                key={admin._id}
+                                key={user._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">{admin.name}</TableCell>
-                                <TableCell component="th" scope="row">{admin.email}</TableCell>
+                                <TableCell component="th" scope="row">{user.username}</TableCell>
+                                <TableCell component="th" scope="row">{user.email}</TableCell>
                                 <TableCell component="th" scope="row">
-                                    <Button variant='contained' color='warning' onClick={() => editProduct(admin._id)}>Edit</Button>&nbsp;
-                                    <Button color='error' variant='contained' onClick={() => deleteProduct(admin._id)}>Delete</Button></TableCell>
+                                    <Button variant='contained' color='warning' onClick={() => editProduct(user._id)}>Edit</Button>&nbsp;
+                                    <Button color='error' variant='contained' onClick={() => deleteProduct(user._id)}>Delete</Button></TableCell>
                             </TableRow>
                         )}
                     </TableBody>

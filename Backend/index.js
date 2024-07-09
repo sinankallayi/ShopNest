@@ -31,6 +31,10 @@ app.post('/admin/login', adminController.login)
 app.post('/get-admin', adminController.getAdmin)
 app.delete('/admin', validateAdminToken, adminController.deleteAdmin)
 
+app.get('/users', validateAdminToken, userController.listUsers)
+app.post('/get-user',validateAdminToken, userController.getUser)
+app.delete('/user', validateAdminToken, userController.deleteUser)
+
 
 app.listen(port, () => {
     console.log(`ShopNest app is listening on port ${port}`)

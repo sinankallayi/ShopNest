@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from 'context/AuthContext';
 
 const theme = createTheme({
   palette: {
@@ -28,7 +29,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

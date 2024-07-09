@@ -1,4 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingBag from '@mui/icons-material/ShoppingBag';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -11,19 +12,19 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useUser } from 'hooks/useUser';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchBox } from './Search';
 
 const pages = [{ name: 'Home', link: "/" }, { name: 'About', link: "/about" }, { name: 'Shop', link: "/shop" }, { name: 'Contact', link: "/contact" }];
-const profile = [{ name: 'Profile', link: '/profile' }, { name: 'Account', link: '/account' }, { name: 'Dashboard', link: '/dashboard' }, { name: 'Logout', link: '/logout' },];
+const profile = [{ name: 'Profile', link: '/profile' }, { name: 'Logout', link: '/logout' },];
 const login = [{ name: 'Login', link: '/login' }];
 
 function Navbar() {
   const { user, logout } = useUser()
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate()
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -53,7 +54,12 @@ function Navbar() {
   };
 
   const logoName = "ShopNest"
-  const settings = user == null ? login : profile
+  
+  const [settings, setSettings] = useState(login)
+  useEffect(() => {
+    setSettings(user == null ? login : profile)
+  }, [user])
+  
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -147,12 +153,21 @@ function Navbar() {
 
           <Box sx={{ flexGrow: 0.05, display: { xs: 'none', md: 'flex' } }}>
             <SearchBox />
+
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              onClick={() => handleLinkClick({link:'/cart'})}
+              color="inherit"
+            >
+              <ShoppingBag />
+            </IconButton>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Login">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user?.user} src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user?.email} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
