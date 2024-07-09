@@ -6,33 +6,7 @@ import { toast } from 'react-toastify';
 import { Grid } from '@mui/material';
 // Adjust the path as needed
 
-const Men = ({ products, title }) => {
-  const [message,] = useState('');
-
-  const addToCart = (product) => {
-    // Retrieve existing cart items from localStorage or initialize an empty array
-    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Ensure cartItems is always an array
-    if (!Array.isArray(cartItems)) {
-      cartItems = [];
-    }
-
-    // Add the new product to the cartItems array
-    cartItems.push(product);
-
-    // Update localStorage with the updated cartItems array
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-
-    // Set message to display when product is added to cart
-    toast(`${product.name} added to cart!`);
-
-    // Clear message after 3 seconds
-    // setTimeout(() => {
-    //   setMessage('');
-    // }, 3000);
-  };
-
+const Men = ({ products, title ,addToCart }) => {
   return (
     <div className='containerStyle'>
       <div className="women-page">

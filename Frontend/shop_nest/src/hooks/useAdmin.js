@@ -37,7 +37,6 @@ export const useAdmin = () => {
   }
 
   const logout = () => {
-    if (!window.confirm("Confirm Logout")) return
     localStorage.removeItem(ACCESS_TOKEN)
     removeUser();
   };

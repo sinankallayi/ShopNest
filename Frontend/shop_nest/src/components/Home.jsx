@@ -1,31 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import './Home.css';
+import { useEffect, useState } from 'react';
 import './Hero/Hero.css';
+import './Home.css';
 // import hand_icon from '../assets/hand_icon.png';
-import arrow_icon from '../assets/arrow.png';
-import hero_image from '../assets/files.png';
-import hero_image2 from '../assets/files2.png';
+import ProductList from 'data/Productlist';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import carousel1 from '../assets/Carousel4.jpg';
 import carousel2 from '../assets/Carousel5.jpg';
 import carousel3 from '../assets/Carousel6.jpg';
 import help from '../assets/help.png';
-import Men from 'pages/Mens';
-import ProductList from 'data/Productlist';
 
-import product13 from 'assets/product_13.png';
-import product24 from 'assets/product_24.png';
-import product26 from 'assets/product_26.png';
-import product4 from 'assets/product_4.png';
-import product12 from 'assets/product_12.png';
-import product30 from 'assets/product_30.png';
 import { Typography } from '@mui/material';
 import axios from 'axios';
 
 
 
-const Home = () => {
+const Home = ({addToCart}) => {
   const [products, setProducts] = useState()
   const [isLoading, setLoading] = useState(false)
 
@@ -103,7 +93,7 @@ const Home = () => {
         </Typography>
         <div className="row" style={{ marginLeft: '10%' }}>
           {isLoading ? <h1>Loading</h1> :
-            products && <ProductList products={products.slice(0,4)} />
+            products && <ProductList addToCart={addToCart} products={products.slice(0,4)} />
           }
         </div>
       </div>
@@ -146,7 +136,7 @@ const Home = () => {
           <b>Most Viewed</b>
           <hr color='#267871' />
         {isLoading ? <h1>Loading</h1> :
-            products?.slice(4, 8) && <ProductList products={products.slice(4, 8)} />
+            products?.slice(4, 8) && <ProductList addToCart={addToCart} products={products.slice(4, 8)} />
           }
         </div>
       </div>

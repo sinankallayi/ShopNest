@@ -24,6 +24,7 @@ app.post('/product', [validateAdminToken, upload.single('image')], productContro
 app.get('/product', productController.listProduct)
 app.post('/search-product', productController.getProduct)
 app.delete('/product', validateAdminToken, productController.deleteProduct)
+app.patch('/product/:id', [validateAdminToken, upload.single('image')], productController.updateProduct)
 
 app.get('/admins', adminController.listAdmins)
 app.post('/admin/create', adminController.signup)

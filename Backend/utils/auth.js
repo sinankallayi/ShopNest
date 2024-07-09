@@ -9,11 +9,11 @@ function checkToken(req, res, next, type) {
     } else {
         jwt.verify(token, "ACCESS_TOKEN_SECRET", (err, user) => {
             if (err) {
-                res.status(403).json({ success: false, message: "Token invalid" })
+                res.status(403).json({ success: false, message: err.message })
             }
             else {
                 if (user.type == type) {
-                    req.user = user
+                    // req.email = user.email
                     next() //proceed to the next action in the calling function
                 } else {
                     res.status(403).json({ success: false, message: "Token invalid" })

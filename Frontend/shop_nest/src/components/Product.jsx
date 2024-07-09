@@ -24,6 +24,9 @@ const Product = ({ product, addToCart }) => {
         <Typography variant="body2" color="text.secondary">
         {product.description}
         </Typography>
+        <Typography variant="h6" color="primary">
+        ₹{product.price}
+        </Typography>
       </CardContent>
       <CardActions>
         <button size="small" onClick={() => addToCart(product)}>Add to Cart</button>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { imageUrl } from 'utils/image';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -37,9 +38,10 @@ const Cart = () => {
           <ul style={styles.listGroup}>
             {cartItems.map((item, index) => (
               <li key={index} style={styles.listGroupItem}>
+                  <img style={{height:"100px"}} src={imageUrl(item.image)}/>
                 <div>
                   <h5 style={styles.itemName}>{item.name}</h5>
-                  <p style={styles.itemPrice}>${item.price}</p>
+                  <p style={styles.itemPrice}>₹{item.price}</p>
                 </div>
                 <button style={styles.removeButton} onClick={() => removeFromCart(index)}>Remove</button>
               </li>
