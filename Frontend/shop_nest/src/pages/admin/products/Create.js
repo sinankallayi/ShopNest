@@ -6,6 +6,7 @@ import FileUpload from 'components/FileUpload';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { authHeader, getToken } from 'utils/auth';
 
 
 export const CreateProduct = () => {
@@ -19,16 +20,16 @@ export const CreateProduct = () => {
     const navigate = useNavigate()
 
 
-    useEffect(() => {
-        getProduct(id)
-    }, [])
+    // useEffect(() => {
+    //     getProduct(id)
+    // }, [])
 
 
-    const getProduct = (id) => {
-        axios.post(`http://localhost:5000/search-product`, { _id: id }).then(response => {
-            setProduct(response.data[0])
-        })
-    }
+    // const getProduct = (id) => {
+    //     axios.post(`http://localhost:5000/search-product`, { _id: id }).then(response => {
+    //         setProduct(response.data[0])
+    //     })
+    // }
 
     const setProduct = (product) => {
         setName(product.name)
@@ -46,7 +47,9 @@ export const CreateProduct = () => {
         form.append('price', price)
         form.append('type', type)
         form.append('image', image)
-        const response = await axios.post('http://localhost:5000/product', form)
+        const response = await axios.post('http://localhost:5000/product', form,
+            authHeader()
+        )
         if (response.data.success) {
             navigate('/products')
         } else {

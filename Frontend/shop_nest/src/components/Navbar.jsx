@@ -11,16 +11,20 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SearchBox } from './Search';
+import { useAdmin } from 'hooks/useAdmin';
 
-const pages = [{name:'Home', link:"/"}, {name:'About', link:"/about"}, {name:'Shop', link:"/shop"},{name:'Contact', link:"/contact"} ];
-const settings = [{name:'Profile', link:'/profile'},{name:'Account', link:'/account'},{name:'Dashboard', link:'/dashboard'},{name:'Logout', link:'/logout'},];
+const pages = [{ name: 'Home', link: "/" }, { name: 'About', link: "/about" }, { name: 'Shop', link: "/shop" }, { name: 'Contact', link: "/contact" }];
+const profile = [{ name: 'Profile', link: '/profile' }, { name: 'Account', link: '/account' }, { name: 'Dashboard', link: '/dashboard' }, { name: 'Logout', link: '/logout' },];
+const login = [{ name: 'Login', link: '/login' }];
 
 function Navbar() {
+  const { user } = useAdmin()
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-const navigate = useNavigate()
+  const navigate = useNavigate()
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -36,7 +40,7 @@ const navigate = useNavigate()
     setAnchorElUser(null);
   };
 
-  
+
   const handleLinkClick = (page) => {
     navigate(page.link);
     handleCloseNavMenu()
@@ -44,6 +48,7 @@ const navigate = useNavigate()
   };
 
   const logoName = "ShopNest"
+  const settings = user == null ? login : profile
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -53,20 +58,21 @@ const navigate = useNavigate()
             variant="h6"
             noWrap
             component="a"
-            onClick={()=>handleLinkClick({link:"/"})}
+            onClick={() => handleLinkClick({ link: "/" })}
             sx={{
-              mr: 2,
+              mr: 58,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              cursor:'pointer'
             }}
           >
             {logoName}
           </Typography>
-
+            
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -97,7 +103,7 @@ const navigate = useNavigate()
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.link} onClick={()=>handleLinkClick(page)}>
+                <MenuItem key={page.link} onClick={() => handleLinkClick(page)}>
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
@@ -108,7 +114,7 @@ const navigate = useNavigate()
             variant="h5"
             noWrap
             component="a"
-            onClick={()=>handleLinkClick({link:"/"})}
+            onClick={() => handleLinkClick({ link: "/" })}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -126,7 +132,7 @@ const navigate = useNavigate()
             {pages.map((page) => (
               <Button
                 key={page.name}
-                onClick={()=>handleLinkClick(page)}
+                onClick={() => handleLinkClick(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.name}
@@ -134,14 +140,14 @@ const navigate = useNavigate()
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
-            <SearchBox/>
+          <Box sx={{ flexGrow: 0.05, display: { xs: 'none', md: 'flex' } }}>
+            <SearchBox />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Login">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user?.user} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -161,7 +167,7 @@ const navigate = useNavigate()
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={()=>handleLinkClick(setting)}>
+                <MenuItem key={setting.name} onClick={() => handleLinkClick(setting)}>
                   <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}

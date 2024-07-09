@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
 import './Hero/Hero.css';
 // import hand_icon from '../assets/hand_icon.png';
@@ -7,9 +7,9 @@ import hero_image from '../assets/files.png';
 import hero_image2 from '../assets/files2.png';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import carousel1 from '../assets/carousel1.png';
-import carousel2 from '../assets/carousel2.1.jpeg';
-import carousel3 from '../assets/carousel3.jpg';
+import carousel1 from '../assets/Carousel4.jpg';
+import carousel2 from '../assets/Carousel5.jpg';
+import carousel3 from '../assets/Carousel6.jpg';
 import help from '../assets/help.png';
 import Men from 'pages/Mens';
 import ProductList from 'data/Productlist';
@@ -20,59 +20,28 @@ import product26 from 'assets/product_26.png';
 import product4 from 'assets/product_4.png';
 import product12 from 'assets/product_12.png';
 import product30 from 'assets/product_30.png';
+import { Typography } from '@mui/material';
+import axios from 'axios';
 
 
 
 const Home = () => {
+  const [products, setProducts] = useState()
+  const [isLoading, setLoading] = useState(false)
 
-  const products1 = [
-    {
-      id: 4,
-      name: 'Top',
-      description: 'This is the description for product 1.',
-      image: product4,
-      price: '$100'
-    },
-    {
-      id: 5,
-      name: 'T Shirt',
-      description: 'This is the description for product 2.',
-      image: product12,
-      price: '$200'
-    },
-    {
-      id: 6,
-      name: 'Jacket',
-      description: 'This is the description for product 3.',
-      image: product30,
-      price: '$500'
-    },
-  ]
-
-  const products = [
-    {
-      id: 1,
-      name: 'Jacket',
-      description: 'This is the description for product 1.',
-      image: product13,
-      price: '$100'
-    },
-    {
-      id: 2,
-      name: 'Jacket',
-      description: 'This is the description for product 2.',
-      image: product24,
-      price: '$200'
-    },
-    {
-      id: 3,
-      name: 'Hoodie',
-      description: 'This is the description for product 3.',
-      image: product26,
-      price: '$500'
-    },
-    // Add more products as needed
-  ];
+  const getProducts = () => {
+    setLoading(true)
+    axios.get("http://localhost:5000/product").then(response => {
+      setProducts(response.data)
+      setLoading(false)
+    }).catch(e => {
+      console.log(e)
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    getProducts()
+  }, [])
 
   const slides = [
     {
@@ -95,12 +64,24 @@ const Home = () => {
   return (
     <div className='containerStyle'>
       <header style={{ backgroundColor: 'white', padding: '20px', color: 'black', height: '150px', fontFamily: 'Abel' }}>
-        <h1 style={{ textAlign:'center' }}>Welcome to ShopNest</h1>
-        <p style={{ fontSize: '20px', textAlign:'center' }}>Your one-stop shop for everything!</p>
+        <h1 style={{ textAlign: 'center' }}>Welcome to ShopNest</h1>
+        <p style={{ fontSize: '20px', textAlign: 'center' }}>Your one-stop shop for everything!</p>
+        <hr width="400px" color='#267871' />
       </header>
 
+      <div className="carousel-container">
+        <Carousel showThumbs={false} autoPlay={true} dynamicHeight={true} infiniteLoop={true}>
+          {slides.map((slide, index) => (
+            <div key={index}>
+              <img src={slide.image} alt={slide.label} style={{ width: '80%' }} />
+              {/* <p className="legend">{slide.label}</p> */}
+            </div>
+          ))}
+        </Carousel>
+      </div>
 
-{/* 
+
+      {/* 
       <div className='hero'>
         <div className="row">
           <div className="col-md-6 hero-right">
@@ -115,9 +96,18 @@ const Home = () => {
 
 
       <div className="container">
+        <Typography variant='h3' style={{ margin: '50px' }} >
+          <hr color='#267871' />
+          <b>Latest Collection</b>
+          <hr color='#267871' />
+        </Typography>
         <div className="row" style={{ marginLeft: '10%' }}>
-          <ProductList products={[...products, products[0]]} />
-          {/* {products.map((product) => (
+          {isLoading ? <h1>Loading</h1> :
+            products && <ProductList products={products.slice(0,4)} />
+          }
+        </div>
+      </div>
+      {/* {products.map((product) => (
             <div key={product.id} className="col-4">
               <div className="card">
                 <img src={product.image} alt={product.name} className="card-img-top" />
@@ -134,7 +124,7 @@ const Home = () => {
 
 
 
-          {/* <div className="col-md-6 hero-left">
+      {/* <div className="col-md-6 hero-left">
       <div style={{ marginLeft: '6%' }}>
         <p>IF YOU CAN'T<br /><br />STOP THINKING<br /><br />ABOUT IT...<br /><br />BUY IT</p>
       </div>
@@ -145,30 +135,24 @@ const Home = () => {
 
 
 
-        </div>
-      </div>
 
 
-      <div className="carousel-container">
-        <Carousel showThumbs={false} autoPlay={true} dynamicHeight={true}  infiniteLoop={true}>
-          {slides.map((slide, index) => (
-            <div key={index}>
-              <img src={slide.image} alt={slide.label} />
-              {/* <p className="legend">{slide.label}</p> */}
-            </div>
-          ))}
-        </Carousel>
-      </div>
+
+
 
       <div className="container">
         <div className="row" style={{ marginLeft: '10%' }}>
-          <ProductList products={products1} />
+        <hr color='#267871' />
+          <b>Most Viewed</b>
+          <hr color='#267871' />
+        {isLoading ? <h1>Loading</h1> :
+            products?.slice(4, 8) && <ProductList products={products.slice(4, 8)} />
+          }
         </div>
       </div>
-      
-      <div><center>
-        <img src={help} alt="help" width='100%' />
-      </center>
+
+      <div style={{background:"#267871", display:"flex", justifyContent:"center"}}>
+        <img src={help} alt="help"/>
       </div>
     </div>
   );

@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
-import 'pages/Women.css'; // Assuming you create a separate CSS file for the Womens component
+import 'pages/Mens.css'; // Assuming you create a separate CSS file for the Womens component
+import { useState } from 'react';
 // import products from 'data/Products.jsx';
 import Product from 'components/Product.jsx';
 import { toast } from 'react-toastify';
-import product_0 from 'assets/product_0.jpg';
+import { Grid } from '@mui/material';
 // Adjust the path as needed
 
-const Men = ({products,title,product_0}) => {
-
+const Men = ({ products, title }) => {
   const [message,] = useState('');
 
   const addToCart = (product) => {
     // Retrieve existing cart items from localStorage or initialize an empty array
     let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    
+
     // Ensure cartItems is always an array
     if (!Array.isArray(cartItems)) {
       cartItems = [];
     }
-    
+
     // Add the new product to the cartItems array
     cartItems.push(product);
 
@@ -27,7 +26,7 @@ const Men = ({products,title,product_0}) => {
 
     // Set message to display when product is added to cart
     toast(`${product.name} added to cart!`);
-    
+
     // Clear message after 3 seconds
     // setTimeout(() => {
     //   setMessage('');
@@ -37,19 +36,17 @@ const Men = ({products,title,product_0}) => {
   return (
     <div className='containerStyle'>
       <div className="women-page">
-        <header className='shopheader' style={{ backgroundColor: '#287671', padding: '2px', color: 'white', height: '100px', fontFamily: 'Abel' }}>
-          <h1 style={{ fontFamily: 'abril-fatface-regular', fontSize: '25px' }}>{title}</h1>
+        <header className='shopheader' style={{ backgroundColor: 'white', padding: '2px', color: 'black', height: '50px', fontFamily: 'Abel' }}>
+          <h1 style={{ fontFamily: 'abril-fatface-regular', fontSize: '25px', marginLeft: '650px' }}>{title} <hr color='#267871' /></h1>
+
         </header>
         <main>
-          {/* <div>
-          <img src={product_0} alt='banner' />
-          </div> */}
-          <div className="product-list">
-            {products.map(product => (
-              <Product key={product.id} product={product} addToCart={() => addToCart(product)} />
+          <Grid container direction={"row"} spacing={4} justifyContent="center"
+            alignItems="center">
+            {products?.map(product => (
+              <Product key={product._id} product={product} addToCart={() => addToCart(product)} />
             ))}
-          </div>
-          {message && <p>{message}</p>}
+          </Grid>
         </main>
       </div>
     </div>
@@ -57,3 +54,7 @@ const Men = ({products,title,product_0}) => {
 };
 
 export default Men;
+
+
+
+

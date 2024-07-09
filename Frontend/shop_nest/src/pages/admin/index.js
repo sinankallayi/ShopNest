@@ -1,13 +1,26 @@
 import { Container, Grid } from '@mui/material';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useAdmin } from 'hooks/useAdmin';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const Admin = () => {
+export const AdminDashboard = () => {
+    const { user } = useAdmin()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (user) {
+            console.log(user);
+        }
+        else {
+            navigate('/admin')
+        }
+    }, [])
+
     return (
         <Container>
             <h1>Admin Dashboard</h1>
@@ -18,13 +31,13 @@ export const Admin = () => {
 
 
                 <Grid item xs={3}>
-                    <Card><Item name={"User"} link={"/user"} count={10} /></Card>
+                    <Card><Item name={"User"} link={"/users"} count={10} /></Card>
                 </Grid>
 
 
 
                 <Grid item xs={3}>
-                    <Card><Item name={"Admin"} link={"/admin"} count={10} /></Card>
+                    <Card><Item name={"Admin"} link={"/admins"} count={10} /></Card>
                 </Grid>
             </Grid>
         </Container>
@@ -33,7 +46,7 @@ export const Admin = () => {
 
 const Item = ({ name, count, link }) => {
     const navigate = useNavigate()
-    const handleView=()=>{
+    const handleView = () => {
         navigate(link)
     }
     return (
@@ -47,7 +60,7 @@ const Item = ({ name, count, link }) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={()=>handleView(link)}>view</Button>
+                <Button size="small" onClick={() => handleView(link)}>view</Button>
             </CardActions>
         </>
     )

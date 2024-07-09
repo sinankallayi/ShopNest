@@ -1,4 +1,16 @@
+.img-wrapper {
+  display: flex;
+  height: 400px;
+  align-self: center;
+  justify-content: center;
 
+}
+
+.img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
 
 .container {
   width: 80%;
@@ -17,16 +29,19 @@ main h2 {
   /* justify-content: space-between; */
 }
 
-.profile-info, .profile-orders, .profile-settings {
+.profile-info,
+.profile-orders,
+.profile-settings {
   background-color: #fff;
   padding: 1rem;
   margin-bottom: 2rem;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 40%;
 }
 
-.profile-info button, .profile-settings button {
+.profile-info button,
+.profile-settings button {
   display: block;
   width: 100%;
   padding: 0.5rem;
@@ -43,11 +58,14 @@ main h2 {
   border-collapse: collapse;
 }
 
-.profile-orders table, th, td {
+.profile-orders table,
+th,
+td {
   border: 1px solid #ddd;
 }
 
-.profile-orders th, td {
+.profile-orders th,
+td {
   padding: 0.5rem;
   text-align: left;
 }

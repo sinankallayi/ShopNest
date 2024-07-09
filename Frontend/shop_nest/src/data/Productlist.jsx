@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import { imageUrl } from 'utils/image';
+import Product from 'components/Product';
 
 
 const ProductList = ({ products,title }) => {
@@ -40,23 +40,10 @@ const ProductList = ({ products,title }) => {
         <h1 style={{fontFamily:'abril-fatface-regular',fontSize:'25px'}}>{title}</h1>
       </header>}
 
-      <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={{xs:2, md:2}} columns={{ xs: 4, sm: 8, md: 18 }}>
-       {products.map((product) => (
-          <Grid item xs={2} sm={4} md={4} key={product.id}>
-            <div className='card'>
-              <img src={product.image} alt={product.name} className='card-img-top' />
-              <div className='card-body'>
-                <h5 className='card-title'>{product.name}</h5>
-                <p className='card-text'>{product.description}</p>
-                <p className='card-text'>{product.price}</p>
-                <button onClick={()=>addToCart(product)} className='btn btn-primary'>Add to Cart</button>
-              </div>
-          </div>
-          </Grid>
-        ))}
+      <Grid container direction={"row"} spacing={4} justifyContent="center"
+            alignItems="center">
+       {products.map((product) => <Product product={product}/>)}
       </Grid>
-    </Box>
     </div>
   );
 };

@@ -1,23 +1,32 @@
 const userModel = require("../model/user")
+const bcrypt = require("bcrypt")
+const { generateRefreshToken } = require("../utils/auth")
 
 const signup = async (req, res) => {
-    const existing = await userModel.findOne({ username: req.body.username, email: req.body.email })
-    if (existing) {
-        res.send({ success: false, message: "User already Registered" })
+    const user = req.body
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    var result = await new userModel({ ...user, password: hashedPassword })
+    if (result.save()) {
+        res.send({ success: true, message: "Registration success", data: result })
     } else {
-        var result = await new userModel(req.body)
-        if (result.save()) {
-            res.send({ success: true, message: "Registration success", data: result})
-        } else {
-            res.send({ success: false, message: "Failed to save" })
-        }
+        res.send({ success: false, message: "Failed to save" })
     }
 }
 
+
 const login = async (req, res) => {
-    console.log("login", req.body)
-    var result = await userModel.findOne(req.body)
-    if (result) {
+    var user = await userModel.findOne({ email: req.body.email })
+    if (user == null) res.status(404).send("User does not exist!")
+    if (await bcrypt.compare(req.body.password, user.password)) {
+        const data = { user: user.email, username: user.username }
+        const accessToken = generateAccessToken(data, 'user')
+        const refreshToken = generateRefreshToken(data, 'user')
+        res.json({ accessToken: accessToken, refreshToken: refreshToken })
+    }
+    else {
+        res.status(401).send("Password Incorrect!")
+    }
+    if (user) {
         res.send({ success: true, message: "success" })
     } else {
         res.send({ success: false, message: "Invalid Credentials" })
@@ -25,7 +34,7 @@ const login = async (req, res) => {
 }
 
 const userController = {
-    signup : signup,
+    signup: signup,
     login: login
 }
 

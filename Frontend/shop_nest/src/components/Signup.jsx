@@ -47,10 +47,10 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.signup_container}>
-      <div className={styles.signup_form_container}>
-        <div className={styles.right}>
-          <form className={styles.form_container} style={{ marginTop: '10%' }} onSubmit={signupHandler}>
+    <div className={styles.login_container}>
+    <div className={styles.login_form_container}>
+      <div className={styles.left}>
+          <form className={styles.form_container} onSubmit={signupHandler}>
             <h1>Create Account</h1>
             <input
               type="text"
@@ -84,7 +84,7 @@ const Signup = () => {
               className={styles.input}
               onChange={handleConfirmPassword}
             />
-            <button type="submit" className="filter-button2" style={{ marginTop: '5%' }}>
+            <button type="submit" className={styles.green_btn} style={{ marginTop: '5%' }}>
               Sign Up
             </button>
           </form>

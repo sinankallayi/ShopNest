@@ -1,8 +1,10 @@
 const express = require('express')
 const cors = require('cors')
+const adminController = require('./controller/admin');
 const userController = require('./controller/user');
 const productController = require('./controller/product');
 const { upload } = require('./utils/file');
+const { validateToken, validateAdminToken } = require('./utils/auth');
 
 const app = express()
 const port = 5000
@@ -17,13 +19,20 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post('/signup', userController.signup)
 app.post('/login', userController.login)
-app.post('/product', upload.single('image'), productController.createProduct)
+
+app.post('/product', [validateAdminToken, upload.single('image')], productController.createProduct)
 app.get('/product', productController.listProduct)
 app.post('/search-product', productController.getProduct)
-app.delete('/product', productController.deleteProduct)
+app.delete('/product', validateAdminToken, productController.deleteProduct)
+
+app.get('/admins', adminController.listAdmins)
+app.post('/admin/create', adminController.signup)
+app.post('/admin/login', adminController.login)
+app.post('/get-admin', adminController.getAdmin)
+app.delete('/admin', validateAdminToken, adminController.deleteAdmin)
 
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`ShopNest app is listening on port ${port}`)
 })
 

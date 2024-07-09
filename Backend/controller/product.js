@@ -21,10 +21,7 @@ const listProduct = async (req, res) => {
 }
 
 const deleteProduct = async (req, res) => {
-    console.log(req.body.id)
-    console.log(req.body)
     const result = await productModel.findByIdAndDelete(req.body.id)
-    console.log(result)
     res.send({ success: true, message: "Delete successfully", data: result})
 }
 
