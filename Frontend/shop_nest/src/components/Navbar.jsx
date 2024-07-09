@@ -10,17 +10,17 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useUser } from 'hooks/useUser';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchBox } from './Search';
-import { useAdmin } from 'hooks/useAdmin';
 
 const pages = [{ name: 'Home', link: "/" }, { name: 'About', link: "/about" }, { name: 'Shop', link: "/shop" }, { name: 'Contact', link: "/contact" }];
 const profile = [{ name: 'Profile', link: '/profile' }, { name: 'Account', link: '/account' }, { name: 'Dashboard', link: '/dashboard' }, { name: 'Logout', link: '/logout' },];
 const login = [{ name: 'Login', link: '/login' }];
 
 function Navbar() {
-  const { user } = useAdmin()
+  const { user, logout } = useUser()
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -42,7 +42,12 @@ function Navbar() {
 
 
   const handleLinkClick = (page) => {
-    navigate(page.link);
+    if (page.link == "/logout") {
+      logout()
+      navigate('/')
+    } else {
+      navigate(page.link);
+    }
     handleCloseNavMenu()
     handleCloseUserMenu()
   };
@@ -67,12 +72,12 @@ function Navbar() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
-              cursor:'pointer'
+              cursor: 'pointer'
             }}
           >
             {logoName}
           </Typography>
-            
+
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"

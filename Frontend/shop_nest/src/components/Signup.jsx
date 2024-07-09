@@ -23,7 +23,7 @@ const Signup = () => {
       const result =response.data
       if(result.success){
         toast.success(result.message)
-        navigate('/')
+        navigate(-1)
       }
     })
     .catch(err=>console.log(err))

@@ -31,15 +31,15 @@ function validateAdminToken(req, res, next) {
 }
 
 // accessTokens
-function generateAccessToken(user, type) {
-    return jwt.sign({ ...user, type: type }, "ACCESS_TOKEN_SECRET", { expiresIn: "15m" })
+function generateAccessToken(data) {
+    return jwt.sign(data, "ACCESS_TOKEN_SECRET", { expiresIn: "15m" })
 }
 
 
 let refreshTokens = []
-function generateRefreshToken(user, type) {
+function generateRefreshToken(data) {
     const refreshToken =
-        jwt.sign({ ...user, type: type }, "REFRESH_TOKEN_SECRET", { expiresIn: "20m" })
+        jwt.sign(data, "REFRESH_TOKEN_SECRET", { expiresIn: "20m" })
     refreshTokens.push(refreshToken)
     return refreshToken
 }
