@@ -50,9 +50,7 @@ const Item = ({ name, count, link }) => {
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     {name}
                 </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    {count} item(s)
-                </Typography>
+                
             </CardContent>
             <CardActions>
                 <Button size="small" onClick={() => handleView(link)}>view</Button>

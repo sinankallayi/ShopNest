@@ -10,13 +10,13 @@ const Men = ({ products, title ,addToCart }) => {
   return (
     <div className='containerStyle'>
       <div className="women-page">
-        <header className='shopheader' style={{ backgroundColor: 'white', padding: '2px', color: 'black', height: '50px', fontFamily: 'Abel' }}>
+        <header className='shopheader' style={{ backgroundColor: 'white', padding: '2px', color: 'black', height: '50px', fontFamily: 'Abel',marginTop:'50px' }}>
           <h1 style={{ fontFamily: 'abril-fatface-regular', fontSize: '25px', marginLeft: '650px' }}>{title} <hr color='#267871' /></h1>
 
         </header>
         <main>
           <Grid container direction={"row"} spacing={4} justifyContent="center"
-            alignItems="center">
+            alignItems="center" style={{marginTop:'20px'}}>
             {products?.map(product => (
               <Product key={product._id} product={product} addToCart={() => addToCart(product)} />
             ))}

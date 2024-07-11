@@ -13,9 +13,14 @@ import help from '../assets/help.png';
 import { Typography } from '@mui/material';
 import axios from 'axios';
 
+import { Box, IconButton, Tooltip } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 
-const Home = ({addToCart}) => {
+
+const Home = ({ addToCart }) => {
   const [products, setProducts] = useState()
   const [isLoading, setLoading] = useState(false)
 
@@ -93,7 +98,7 @@ const Home = ({addToCart}) => {
         </Typography>
         <div className="row" style={{ marginLeft: '10%' }}>
           {isLoading ? <h1>Loading</h1> :
-            products && <ProductList addToCart={addToCart} products={products.slice(0,4)} />
+            products && <ProductList addToCart={addToCart} products={products.slice(0, 4)} />
           }
         </div>
       </div>
@@ -131,19 +136,59 @@ const Home = ({addToCart}) => {
 
 
       <div className="container">
-        <div className="row" style={{ marginLeft: '10%' }}>
-        <hr color='#267871' />
+        <Typography variant='h3' style={{ margin: '50px' }} >
+          <hr color='#267871' />
           <b>Most Viewed</b>
           <hr color='#267871' />
-        {isLoading ? <h1>Loading</h1> :
-            products?.slice(4, 8) && <ProductList addToCart={addToCart} products={products.slice(4, 8)} />
-          }
-        </div>
-      </div>
+        </Typography>
 
-      <div style={{background:"#267871", display:"flex", justifyContent:"center"}}>
-        <img src={help} alt="help"/>
+        {isLoading ? <h1>Loading</h1> :
+          products?.slice(4, 8) && <ProductList addToCart={addToCart} products={products.slice(4, 8)} />
+        }
+
       </div>
+      <div style={{ marginTop: '100px' }}>
+        <hr color='#267871' width="1000px" />
+        <Typography variant='h5' fontFamily={'abel'} style={{ marginLeft: '710px' }}>
+          <b>-ShopNest-</b>
+        </Typography>
+        <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
+          <Tooltip title="Follow us on Facebook">
+            <IconButton
+              href="https://www.facebook.com/yourpage"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="primary"
+            >
+              <FacebookIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Follow us on Instagram">
+            <IconButton
+              href="https://www.instagram.com/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="secondary"
+            >
+              <InstagramIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Chat with us on WhatsApp">
+            <IconButton
+              href="https://wa.me/yourwhatsappnumber"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#25D366' }}
+            >
+              <WhatsAppIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </div>
+      {/* <div style={{ background: "#267871", display: "flex", justifyContent: "center" ,height:'100px'}}>
+        <img src={help} alt="help" />
+        
+      </div> */}
     </div>
   );
 }

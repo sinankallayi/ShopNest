@@ -1,34 +1,38 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingBag from '@mui/icons-material/ShoppingBag';
+import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useUser } from 'hooks/useUser';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SearchBox } from './Search';
 
 const pages = [{ name: 'Home', link: "/" }, { name: 'About', link: "/about" }, { name: 'Shop', link: "/shop" }, { name: 'Contact', link: "/contact" }];
-const profile = [{ name: 'Profile', link: '/profile' }, { name: 'Logout', link: '/logout' },];
+const profile = [{ name: 'Profile', link: '/profile' }, { name: 'Logout', link: '/logout' }];
 const login = [{ name: 'Login', link: '/login' }];
 
 function Navbar() {
-  const { user, logout } = useUser()
-
+  const { user, logout } = useUser();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const navigate = useNavigate()
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+  
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -41,30 +45,42 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
-
   const handleLinkClick = (page) => {
-    if (page.link == "/logout") {
-      logout()
-      navigate('/')
+    if (page.link === "/logout") {
+      logout();
+      navigate('/');
     } else {
       navigate(page.link);
     }
-    handleCloseNavMenu()
-    handleCloseUserMenu()
+    handleCloseNavMenu();
+    handleCloseUserMenu();
   };
 
-  const logoName = "ShopNest"
+  const logoName = "ShopNest";
+
+  const [settings, setSettings] = useState(login);
   
-  const [settings, setSettings] = useState(login)
   useEffect(() => {
-    setSettings(user == null ? login : profile)
-  }, [user])
-  
+    setSettings(user == null ? login : profile);
+  }, [user]);
+
+  const handleSearch = () => {
+    const query = searchQuery.toLowerCase();
+    if (query.includes('women')) {
+      navigate('/womens');
+    } else if (query.includes('men')) {
+      navigate('/mens');
+    } else if (query.includes('kids')) {
+      navigate('/kids');
+    } else {
+      alert('No matching category found!');
+    }
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <Shop sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -120,7 +136,7 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+          
           <Typography
             variant="h5"
             noWrap
@@ -139,6 +155,7 @@ function Navbar() {
           >
             {logoName}
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -152,12 +169,27 @@ function Navbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0.05, display: { xs: 'none', md: 'flex' } }}>
-            <SearchBox />
-
+            <TextField
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search..."
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleSearch}>
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+              size="small"
+              sx={{ backgroundColor: 'white', borderRadius: '4px', mr: 2 }}
+            />
             <IconButton
               size="large"
               aria-label="account of current user"
-              onClick={() => handleLinkClick({link:'/cart'})}
+              onClick={() => handleLinkClick({ link: '/cart' })}
               color="inherit"
             >
               <ShoppingBag />
@@ -198,5 +230,5 @@ function Navbar() {
     </AppBar>
   );
 }
-export default Navbar;
 
+export default Navbar;

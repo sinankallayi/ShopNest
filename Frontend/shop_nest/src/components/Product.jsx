@@ -29,7 +29,7 @@ const Product = ({ product, addToCart }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <button size="small" onClick={() => addToCart(product)}>Add to Cart</button>
+        <button className='filter-button' size="small" onClick={() => addToCart(product)}>Add to Cart</button>
       </CardActions>
     </Card>
 
