@@ -5,7 +5,7 @@ import ProfileSettings from './ProfileSettings';
 
 const Profile = () => {
   return (
-    <section className="profile" style={{marginTop:'18%',marginLeft:'20%',marginRight:'10%',gap:'2%',paddingBottom:'12%'}}>
+    <section className="profile" style={{marginTop:'5%',marginLeft:'20%',marginRight:'10%',gap:'2%',paddingBottom:'12%'}}>
       <ProfileInfo />
       {/* <ProfileOrders /> */}
       <ProfileSettings />

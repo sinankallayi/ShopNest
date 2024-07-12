@@ -1,54 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Container, Typography, Paper, List, ListItem, ListItemText, Box } from '@mui/material';
 
-const ProfileSettings = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+const OrderHistory = () => {
+  const [orders, setOrders] = useState([]);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-
-    // Create a preview URL for the selected file
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewUrl(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (!selectedFile) {
-      alert('Please select a file first!');
-      return;
-    }
-
-    // Handle the file upload logic here
-    // For example, you could send the file to a server
-    // using an API call, or upload it to a cloud storage service
-    console.log('File uploaded:', selectedFile);
-
-    // Clear the selected file after upload
-    setSelectedFile(null);
-    setPreviewUrl(null);
-  };
+  useEffect(() => {
+    const storedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    setOrders(storedOrders);
+  }, []);
 
   return (
-    <div className="profile-settings">
-      <h3>Upload Profile Picture</h3>
-      <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} />
-        {previewUrl && (
-          <div>
-            <h4>Preview:</h4>
-            <img src={previewUrl} alt="Profile Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-          </div>
-        )}
-        <button type="submit">Upload</button>
-      </form>
-    </div>
+    <Container maxWidth="md" sx={{ mt: 8, mb: 8 }}>
+      <Typography variant="h4" component="h1" align="center" gutterBottom>
+        Order History
+        <hr color='#267871'/>
+      </Typography>
+      {orders.length === 0 ? (
+        <Typography variant="h6" component="p" align="center">
+          No orders found.
+        </Typography>
+      ) : (
+        <List>
+          {orders.map((order, index) => (
+            <Paper key={index} sx={styles.orderPaper}>
+              <Box sx={styles.orderHeader}>
+                <Typography variant="h6" component="h2">
+                  Order {index + 1} - {order.date}
+                </Typography>
+              </Box>
+              <List>
+                {order.items.map((item, itemIndex) => (
+                  <ListItem key={itemIndex} sx={styles.listItem}>
+                    <ListItemText
+                      primary={item.name}
+                      secondary={`Price: ₹${item.price} x Quantity: ${item.quantity}`}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+              <Box sx={styles.totalAmount}>
+                <Typography variant="body1" component="p">
+                  Total: ₹{order.totalAmount}
+                </Typography>
+              </Box>
+            </Paper>
+          ))}
+        </List>
+      )}
+    </Container>
   );
 };
 
-export default ProfileSettings;
+const styles = {
+  orderPaper: {
+    marginBottom: '16px',
+    padding: '16px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  orderHeader: {
+    backgroundColor: '#f0f0f0',
+    padding: '12px',
+    borderTopLeftRadius: '8px',
+    borderTopRightRadius: '8px',
+    marginBottom: '8px',
+  },
+  listItem: {
+    padding: '12px',
+    borderBottom: '1px solid #e0e0e0',
+  },
+  totalAmount: {
+    backgroundColor: '#e0f2f1',
+    padding: '12px',
+    borderBottomLeftRadius: '8px',
+    borderBottomRightRadius: '8px',
+  },
+};
+
+export default OrderHistory;

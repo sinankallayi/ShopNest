@@ -1,20 +1,19 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import FileUpload from 'components/FileUpload';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useAdmin } from 'hooks/useAdmin';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 export const CreateAdmin = () => {
-    const { user } = useAdmin()
+    const { isLoggedIn } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
 
     const [name, setName] = useState()
@@ -30,7 +29,6 @@ export const CreateAdmin = () => {
 
 
     const handleCreate = async () => {
-        var form = new FormData();
         const data = { name: name, email: email, password: password }
         const response = await axios.post('http://localhost:5000/admin/create', data)
         if (response.data.success) {

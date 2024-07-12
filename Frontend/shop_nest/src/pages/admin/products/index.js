@@ -9,13 +9,17 @@ import axios from 'axios';
 import { useAdmin } from 'hooks/useAdmin';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { authHeader } from 'utils/auth';
+import { AdminNavbar } from '../AdminNavbar';
 export const Products = () => {
-    const { user } = useAdmin()
+    const { isLoggedIn,logout } = useAdmin()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) navigate('/admin')
+        if (!isLoggedIn()) navigate('/admin')
     }, [])
+
     const [products, setProducts] = useState()
     useEffect(() => {
         getProducts()
@@ -27,9 +31,18 @@ export const Products = () => {
         })
     }
     const deleteProduct = (id) => {
-        axios.delete("http://localhost:5000/product", { data: { id: id } }).then(response => {
-            getProducts()
-        })
+        if(window.confirm("Are you sure want to delete?")){
+            axios.delete("http://localhost:5000/product", { data: { id: id } , ...authHeader() },).then(response => {
+                getProducts()
+            }).catch(e=>{
+                console.log(e);
+                if(e.response?.data?.message == 'jwt expired'){
+                    logout()
+                }else{
+                    toast(e.response.data.message)
+                }
+            })
+        }
     }
 
     const editProduct = (id) => {
@@ -38,6 +51,7 @@ export const Products = () => {
 
     return (
         <>
+        <AdminNavbar/>
             <Grid container direction="row" justifyContent="center" sx={{ my: 4 }}>
                 <Grid item><Typography variant='h5'>Products</Typography></Grid>
                 <Grid item ><Button sx={{ mx: 4 }} variant='contained' onClick={() => navigate('/product/create')}>ADD</Button></Grid>

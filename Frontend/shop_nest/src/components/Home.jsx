@@ -5,10 +5,10 @@ import './Home.css';
 import ProductList from 'data/Productlist';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import carousel1 from '../assets/Carousel4.jpg';
-import carousel2 from '../assets/Carousel5.jpg';
-import carousel3 from '../assets/Carousel6.jpg';
-import help from '../assets/help.png';
+import carousel1 from '../assets/Carousel8.jpg';
+import carousel2 from '../assets/Carousel9.jpg';
+import carousel3 from '../assets/Carousel7.jpg';
+
 
 import { Typography } from '@mui/material';
 import axios from 'axios';
@@ -76,18 +76,7 @@ const Home = ({ addToCart }) => {
       </div>
 
 
-      {/* 
-      <div className='hero'>
-        <div className="row">
-          <div className="col-md-6 hero-right">
-            <img src={hero_image} className="img-fluid" alt="Hero" />
-          </div>
-          <div className="col-12 hero-last">
-            <img src={hero_image2} className="img-fluid" alt="Hero 2" style={{ marginLeft: '125%' }} />
-          </div>
-        </div>
-      </div> */}
-
+    
 
 
       <div className="container">
@@ -148,7 +137,7 @@ const Home = ({ addToCart }) => {
 
       </div>
       <div style={{ marginTop: '100px' }}>
-        <hr color='#267871' width="1000px" />
+        <hr color='#267871' width="400px" />
         <Typography variant='h5' fontFamily={'abel'} style={{ marginLeft: '710px' }}>
           <b>-ShopNest-</b>
         </Typography>
